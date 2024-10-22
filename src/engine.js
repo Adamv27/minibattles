@@ -6,10 +6,28 @@ class GameEngine {
     this.ctx = canvas.getContext("2d");
     this.stopMain = 0;
 
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.events = [];
+    
+    this.canvas.width = window.innerWidth - 20;
+    this.canvas.height = window.innerHeight - 20;
 
     this.tileSheet = new TileSheet();
+    
+    this.socket = new WebSocket("ws://localhost:8000");
+    this.socket.addEventListener('open', (event) => {
+      this.socket.send('Connection Established');
+    })
+
+    this.socket.addEventListener('message', (event) => {
+      console.log(event.data);
+    })
+  }
+
+  handleEvents() {
+    this.events.forEach((event) => {
+      console.log(event);
+    })
+    this.events = [];
   }
 
   update(tFrame) {
@@ -29,6 +47,10 @@ class GameEngine {
     this.canvas.height = rect.height * pixelRatio;
     this.canvas.style.width = `${rect.width}px`;
     this.canvas.style.height = `${rect.height}px`;
+  }
+
+  enqueueEvent(event) {
+    this.events.push(event);
   }
 }
 

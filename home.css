@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  background-color: grey;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-btn {
+  width: 8em;
+  height: 5em;
+}
+
+
+#room-code {
+  display: none;
+}
+
+
+#game-canvas {
+  top: 0;
+  left: 0;
+  max-height: 50%;
+}
