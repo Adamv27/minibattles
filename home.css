@@ -14,7 +14,7 @@ body {
 }
 
 
-#room-code {
+#room-code, #connect {
   display: none;
 }
 
