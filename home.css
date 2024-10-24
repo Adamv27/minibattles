@@ -14,7 +14,7 @@ body {
 }
 
 
-#room-code, #connect {
+#room-code, #connect, #game-canvas, #room-input {
   display: none;
 }
 

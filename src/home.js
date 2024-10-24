@@ -3,20 +3,24 @@ const socket = new WebSocket('ws://localhost:8000');
 const createButton = document.getElementById('create');
 const joinButton = document.getElementById('join');
 const connectButton = document.getElementById('connect');
-const codeInput = document.getElementById('room-code');
-
+const codeInput = document.getElementById('room-input');
+const roomCode = document.getElementById('room-code');
+const canvas = document.getElementById('game-canvas');
 
 createButton.addEventListener('click', (e) => {
   socket.send(JSON.stringify({'room': 'create'}));
 });
 
 
-joinButton.addEventListener('click', (e) => {
-  const input = document.getElementById('room-code');
-  input.style.display = 'inline';
+const hideHome = () => {
   createButton.style.display = 'None';
   joinButton.style.display = 'None';
+}
+
+joinButton.addEventListener('click', (e) => {
+  codeInput.style.display = 'inline';
   connectButton.style.display = 'inline';
+  hideHome();
 })
 
 
@@ -29,9 +33,7 @@ connectButton.addEventListener('click', (e) => {
   if (codeIsValid(code)) {
     const message = {
       room: {
-        join: {
-          code: code
-        }
+        join: code
       }
     };
     socket.send(JSON.stringify(message));
@@ -39,12 +41,20 @@ connectButton.addEventListener('click', (e) => {
 })
 
 
+const setupGame = code => {
+  hideHome();
+  connectButton.style.display = 'none';
+  codeInput.style.display = 'none';
+  canvas.style.display = 'inline';
+  roomCode.style.display = 'inline';
+  roomCode.textContent = code;
+}
+
 socket.onmessage = (event) => {
   const response = JSON.parse(event.data)
-  console.log(response);
   if (response.joined) {
-    //window.location.assign(`src/pages/minibattles.html?room=${response.joined}`);
+    setupGame(response.joined);
   } else if (response.error) {
-    alert(response.error)
+    console.log(response.error);
   }
 }

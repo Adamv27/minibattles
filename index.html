@@ -7,14 +7,19 @@
     <title>Mini Battles</title>
   </head>
   <body>
-    <h1>Home</h1>
+    <h1>Title</h1>
+    <h3 id="room-code">ABCDEF</h3>
+
     <div>
-      <input type="text" id="room-code" placeholder="ABCDEF"/>
+      <input type="text" id="room-input" placeholder="ABCDEF"/>
       <button id="create" class="room-btn">Create</button>
       <button id="join" class="room-btn">Join</button>
       <button id="connect">Connect</button>
     </div>
 
+    <canvas id="game-canvas"></canvas>
+
     <script src="src/home.js" type="module"></script>
+    <script src="src/minibattles.js" type="module"></script>
   </body>
 </html>
